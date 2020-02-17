@@ -33,10 +33,23 @@ class Jarvis(object):
                 reply=self.trainingSeq(message)
         elif message['text']=='training time':
             reply=self.startTrain()
+        else:
+            reply=None #Otherwise don't reply
         return reply
     
     
+    def filterMessages(self, message):
+        '''Determine whether message should be responded to.
+        Needs to actually be built'''
+        #if conditions
+        return True
+        #else: 
+        return False
     
+    def onMessage(self, message):
+        if self.filterMessages(message):
+            return self.respond(message)
+        
     
     def trainingSeq(self, message):
         if self.current_action:
@@ -67,9 +80,9 @@ def test():
         message['text']=input('\n') 
         if message['text'].lower()=='quit': 
             break
-        reply=J.respond(message)
-        
-        print(reply)
+        reply=J.onMessage(message)
+        if reply:
+            print(reply)
         
 if __name__=='__main__':
     test()

@@ -1,5 +1,7 @@
 url= 'https://github.com/websocket-client/websocket-client'
+from jarvis import Jarvis
 
+J=Jarvis()
 import websocket
 try:
     import thread
@@ -8,6 +10,7 @@ except ImportError:
 import time
 
 def on_message(ws, message):
+    print(J.respond(message))
     print(message)
 
 def on_error(ws, error):
