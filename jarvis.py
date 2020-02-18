@@ -64,6 +64,7 @@ class Jarvis(object):
     def logData(self, message):
         '''Log Data to self.database. Message is a dictionary, 'action' and 'text' and 'time' are all keys.'''
         #Do logging stuff
+        print(f'Message to log: {message}')
         return "Ok, I've got it! What else do you want to teach me?"
          
     

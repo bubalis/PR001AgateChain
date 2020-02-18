@@ -26,9 +26,8 @@ def connect_and_monitor(token, channel="CU5V62WSZ", bot=Jarvis()):
         list2=check_replies(url, bot_username)
         if len(list2)>len(list1):
             responses=list2[::-1][len(list1):]
-            
             for response in responses:
-                if response.lower()=='quit':
+                if response['text'].lower()=='quit':
                     return
                 reply=bot.onMessage(response)
                 if reply:
