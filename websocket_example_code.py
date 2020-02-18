@@ -1,4 +1,5 @@
 url= 'https://github.com/websocket-client/websocket-client'
+
 from jarvis import Jarvis
 
 J=Jarvis()
@@ -9,8 +10,12 @@ except ImportError:
     import _thread as thread
 import time
 
+def load_token(filename):
+    with open(filename) as f:
+        return f.read()
+
 def on_message(ws, message):
-    print(J.respond(message))
+   # print(J.onMessage(message))
     print(message)
 
 def on_error(ws, error):
@@ -31,8 +36,11 @@ def on_open(ws):
 
 
 if __name__ == "__main__":
+    token=load_token('token.txt')
     websocket.enableTrace(True)
-    ws = websocket.WebSocketApp("ws://https://www.slack.com/api",
+    ws = websocket.WebSocketApp("ws://https://github.com/websocket-client/websocket-client", 
+                                header={'token': token},
+                                                 
                               on_open= on_open,
                               on_message = on_message,
                               on_error = on_error,

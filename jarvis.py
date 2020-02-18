@@ -27,45 +27,42 @@ class Jarvis(object):
     
     def respond(self, message):
         if self.training:
-            if message['text']=='done':
-                reply=self.stopTrain()
+            if message['text'].lower()=='done':
+                return self.stopTrain()
             else:
-                reply=self.trainingSeq(message)
-        elif message['text']=='training time':
-            reply=self.startTrain()
+               return self.trainingSeq(message)
+        elif message['text'].lower()=='training time':
+            return self.startTrain()
         else:
-            reply=None #Otherwise don't reply
-        return reply
+            return None #Otherwise don't reply
     
     
     def filterMessages(self, message):
         '''Determine whether message should be responded to.
-        Needs to actually be built'''
+        Needs to actually be built, once we know what the api will be sending us.'''
         #if conditions
         return True
         #else: 
         return False
     
-    def onMessage(self, message):
+    def onMessage(self, message): #If there is a response, send it out!
         if self.filterMessages(message):
             return self.respond(message)
         
     
     def trainingSeq(self, message):
-        if self.current_action:
-            message['action']=self.current_action
-            self.current_action=None
-            reply=self.logData(message)
+        '''Do training stuff'''
+        if self.current_action: #if action is currently defined
+            message['action']=self.current_action #assign  action to message dictionary
+            self.current_action=None # delete action from class
+            return self.logData(message) #log data
         else:
-            self.current_action=message['text']
-            reply=f"Ok lets call this action {self.current_action}"
-        return reply
+            self.current_action=message['text'].upper() #if action is not defined, define action as current message text.
+            return f"Ok lets call this action {self.current_action}"
 
     
-    
-    
     def logData(self, message):
-        '''Log Data to self.database'''
+        '''Log Data to self.database. Message is a dictionary, 'action' and 'text' and 'time' are all keys.'''
         #Do logging stuff
         return "Ok, I've got it! What else do you want to teach me?"
          
