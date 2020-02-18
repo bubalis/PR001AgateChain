@@ -26,11 +26,11 @@ def on_close(ws):
 
 def on_open(ws):
     def run(*args):
-        for i in range(3):
-            time.sleep(1)
-            ws.send("Hello %d" % i)
-        time.sleep(1)
-        ws.close()
+ #       for i in range(3):
+  #          time.sleep(1)
+   #         ws.send("Hello %d" % i)
+    #    time.sleep(1)
+     #   ws.close()
         print("thread terminating...")
     thread.start_new_thread(run, ())
 
@@ -38,13 +38,19 @@ def on_open(ws):
 if __name__ == "__main__":
     token=load_token('token.txt')
     websocket.enableTrace(True)
-    ws = websocket.WebSocketApp("ws://https://github.com/websocket-client/websocket-client", 
-                                header={'token': token},
+ #   ws = websocket.create_connection("ws://https://slack.com/api/auth.test",  
+   #                                  header=[f'token: {token}']
+    #                                 )
+    
+    ws = websocket.WebSocket()
+    ws.connect(', 
+                                
+                              )
                                                  
-                              on_open= on_open,
-                              on_message = on_message,
-                              on_error = on_error,
-                              on_close = on_close)
-    ws.on_open = on_open
+ #                             on_open= on_open,
+   #                           on_message = on_message,
+    #                          on_error = on_error,
+     #                         on_close = on_close)
+   # ws.on_open = on_open
     ws.run_forever()
 
